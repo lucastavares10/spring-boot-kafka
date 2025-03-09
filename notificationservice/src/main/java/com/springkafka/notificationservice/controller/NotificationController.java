@@ -16,8 +16,8 @@ public class NotificationController {
   private NotificationService notificationService;
 
   @PostMapping("/send-notification")
-  public String postMethodName(@RequestBody NotificationRecord notificationRecord) {
-    return this.notificationService.sendNotification(notificationRecord);
+  public String postMethodName(@RequestBody NotificationRecord notification) {
+    return this.notificationService.sendNotification(notification);
   }
 
 }
