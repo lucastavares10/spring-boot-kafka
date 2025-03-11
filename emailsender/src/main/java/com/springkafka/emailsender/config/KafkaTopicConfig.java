@@ -1,4 +1,4 @@
-package com.springkafka.notificationservice.config;
+package com.springkafka.emailsender.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaAdmin;
 
-import com.springkafka.notificationservice.model.KafkaTopics;
+import com.springkafka.emailsender.model.KafkaTopics;
 
 @Configuration
 public class KafkaTopicConfig {
@@ -28,15 +28,6 @@ public class KafkaTopicConfig {
 
   @Bean
   public NewTopic emailTopic() {
-    return TopicBuilder.name(KafkaTopics.EMAIL_TOPIC)
-        .partitions(1)
-        .replicas(1)
-        .compact()
-        .build();
-  }
-
-  @Bean
-  public NewTopic smsTopic() {
     return TopicBuilder.name(KafkaTopics.EMAIL_TOPIC)
         .partitions(1)
         .replicas(1)
