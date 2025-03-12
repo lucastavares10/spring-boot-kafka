@@ -13,6 +13,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.listener.ContainerProperties;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import com.springkafka.smssender.model.KafkaTopics;
@@ -30,6 +32,7 @@ public class KafkaConsumerConfig {
       ConsumerFactory<String, NotificationRecord> consumerFactory) {
     ConcurrentKafkaListenerContainerFactory<String, NotificationRecord> factory = new ConcurrentKafkaListenerContainerFactory<>();
     factory.setConsumerFactory(consumerFactory);
+    factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
     return factory;
   }
 
@@ -54,7 +57,12 @@ public class KafkaConsumerConfig {
   }
 
   @KafkaListener(topics = KafkaTopics.SMS_TOPIC, groupId = "sms-group")
-  public void listen(NotificationRecord data) {
-    System.out.println(data);
+  public void listen(NotificationRecord notification, Acknowledgment ack) {
+    try {
+      System.out.println("Processando SMS: " + notification);
+      ack.acknowledge();
+    } catch (Exception e) {
+      System.err.println("Erro ao processar SMS: " + e.getMessage());
+    }
   }
 }
