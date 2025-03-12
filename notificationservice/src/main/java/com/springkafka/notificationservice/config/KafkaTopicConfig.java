@@ -29,7 +29,7 @@ public class KafkaTopicConfig {
   @Bean
   public NewTopic emailTopic() {
     return TopicBuilder.name(KafkaTopics.EMAIL_TOPIC)
-        .partitions(1)
+        .partitions(3)
         .replicas(1)
         .compact()
         .build();
@@ -37,8 +37,8 @@ public class KafkaTopicConfig {
 
   @Bean
   public NewTopic smsTopic() {
-    return TopicBuilder.name(KafkaTopics.EMAIL_TOPIC)
-        .partitions(1)
+    return TopicBuilder.name(KafkaTopics.SMS_TOPIC)
+        .partitions(3)
         .replicas(1)
         .compact()
         .build();

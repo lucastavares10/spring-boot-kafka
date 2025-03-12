@@ -53,8 +53,8 @@ public class KafkaConsumerConfig {
     return props;
   }
 
-  @KafkaListener(topics = KafkaTopics.EMAIL_TOPIC, groupId = "group")
-  public void listen1(NotificationRecord data) {
+  @KafkaListener(topics = KafkaTopics.EMAIL_TOPIC, groupId = "email-group")
+  public void listen(NotificationRecord data) {
     System.out.println(data);
   }
 }
